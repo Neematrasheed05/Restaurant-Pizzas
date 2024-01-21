@@ -1,7 +1,7 @@
 from flask import Flask, request, make_response, jsonify
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from models import db, Restaurant, RestaurantPizza, Pizza
+from models import db, Restaurant, Restaurant_pizza, Pizza
 
 
 
@@ -31,16 +31,17 @@ def get_restaurant(restaurant_id):
         return jsonify({"error": "Restaurant not found"}), 404
     
     
-@app.route('/restaurants/<int:restaurant_id>', methods=['DELETE'])
-def delete_restaurant(restaurant_id):
-    restaurant = Restaurant.query.get(restaurant_id)
-    if restaurant:
-        db.session.delete(restaurant)
-        db.session.commit()
-        return '', 204
-    else:
-        return jsonify({"error": "Restaurant not found"}), 404
+@app.route('/restaurants/<int:id>', methods=['DELETE'])
+def delete_restaurant(id):
+    restaurant = Restaurant.query.get(id)
 
+    if restaurant is None:
+        return jsonify({'error': 'Restaurant not found'}), 404
+
+    db.session.delete(restaurant)
+    db.session.commit()
+
+    return '', 204
 
 @app.route('/pizzas', methods=['GET'])
 def get_pizzas():
@@ -64,7 +65,7 @@ def create_restaurant_pizza():
     if not (pizza and restaurant):
         return jsonify({"errors": ["validation errors"]}), 400
 
-    restaurant_pizza = RestaurantPizza(price=price, pizza=pizza, restaurant=restaurant)
+    restaurant_pizza = Restaurant_pizza(price=price, pizza=pizza, restaurant=restaurant)
 
     try:
         db.session.add(restaurant_pizza)

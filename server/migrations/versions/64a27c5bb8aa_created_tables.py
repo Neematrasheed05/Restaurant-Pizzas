@@ -1,8 +1,9 @@
 """created tables
 
-Revision ID: b7c6e4c27667
+
+Revision ID: 64a27c5bb8aa
 Revises: 
-Create Date: 2024-01-20 15:15:00.718446
+Create Date: 2024-01-20 23:22:07.191415
 
 """
 from alembic import op
@@ -10,7 +11,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b7c6e4c27667'
+revision = '64a27c5bb8aa'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,15 +22,15 @@ def upgrade():
     op.create_table('pizzas',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=True),
-    sa.Column('ingredients', sa.String(length=256), nullable=True),
+    sa.Column('ingredients', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('restaurants',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=100), nullable=False),
-    sa.Column('address', sa.String(length=256), nullable=True),
+    sa.Column('name', sa.String(), nullable=True),
+    sa.Column('address', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('restaurant_pizzas',
