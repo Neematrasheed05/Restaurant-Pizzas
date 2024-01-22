@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import logo2 from '../Components/images/logo.jpeg';
+import img from '../Components/images/restaurant.jpeg';
 
 function PizzasList() {
   const [pizzas, setPizzas] = useState([]);
@@ -12,14 +12,14 @@ function PizzasList() {
   }, []);
 
   return (
-    <div className="bg-primary text-white p-5" style={{ backgroundImage: `url(${logo2})` }}>
-    <img src="logo2" class="img-fluid" alt=""></img>
+    <div className="bg-primary text-white p-5" style={{ backgroundImage: `url(${img})` }}>
+    <img src="img" class="img-fluid" alt=""></img>
       <h3 className="mt-3">Pizzas:</h3>
       <ul className="list-group">
         {pizzas.map((pizza) => (
           <li key={pizza.id} className="list-group-item bg-transparent border-light">
-            <h2 className="mb-0 text-white">{pizza.name}</h2>
-            <p className="mb-0 text-white">{pizza.ingredients}</p>
+            <h2 className="mb-0 text-black bg-light">{pizza.name}</h2>
+            <p className="mb-0 text-black bg-light">{pizza.ingredients}</p>
           </li>
         ))}
       </ul>

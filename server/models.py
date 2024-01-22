@@ -9,6 +9,9 @@ class Restaurant(db.Model):
     name = db.Column(db.String)
     address = db.Column(db.String)
     pizzas = db.relationship('Pizza', secondary='restaurant_pizzas')
+    
+    def to_dict(self):
+        return {"id": self.id, "name": self.name, "address": self.address}
 
 class Pizza(db.Model):
     __tablename__ = 'pizzas'
@@ -18,6 +21,10 @@ class Pizza(db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     restaurants = db.relationship('Restaurant', secondary='restaurant_pizzas')
+    
+    def to_dict(self):
+        return {"id": self.id, "name": self.name, "ingredients": self.ingredients}
+
 
 class Restaurant_pizza(db.Model):
     __tablename__='restaurant_pizzas'

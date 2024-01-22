@@ -40,7 +40,7 @@ function PizzasForm() {
     })
       .then((r) => {
         if (r.ok) {
-          navigate("/");
+          navigate("/restaurant_pizzas");
         } else {
           r.json().then((err) => setFormErrors(err.errors));
         }

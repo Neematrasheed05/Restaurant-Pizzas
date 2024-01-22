@@ -29,6 +29,10 @@ function RestaurantsList() {
         <img src="logo" class="img-fluid" alt=""></img>
       <div className="container">
         <h1 className="display-4 mb-4">Our Restaurants 🍽️</h1>
+        <div style={{paddingBottom: 20}}>
+        <button><Link className="btn btn-light text-primary p-3" to="/restaurant_pizzas/new">Add a new Pizza</Link></button>
+        </div>
+
         <ul className="list-group">
           {restaurants.map(restaurant => (
             <li key={restaurant.id} className="list-group-item bg-transparent">
@@ -38,7 +42,6 @@ function RestaurantsList() {
             </li>
           ))}
         </ul>
-        <button><Link className="btn btn-light text-primary p-3" to="/restaurant_pizzas/new">Add a new Pizza</Link></button>
       </div>
     </div>
   );

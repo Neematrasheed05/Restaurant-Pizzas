@@ -42,7 +42,7 @@ function RestaurantDescription() {
       <ul className="list-group">
         {restaurant.pizzas.map((pizza) => (
           <li key={pizza.id} className="list-group-item">
-            <Link to={`/pizzas/${pizza.id}`} className="text-decoration-none">
+            <Link to={`/pizzas/${pizza.id}`} className="text-bg-light p-3 ">
               {pizza.name}
             </Link>
             <p className="mb-0">{pizza.ingredients}</p>

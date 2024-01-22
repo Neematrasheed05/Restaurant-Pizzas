@@ -49,6 +49,22 @@ def get_pizzas():
     pizzas_list = [{"id": pizza.id, "name": pizza.name, "ingredients": pizza.ingredients} for pizza in pizzas]
     return jsonify(pizzas_list)
 
+@app.route('/pizzas/<int:pizza_id>', methods=['PATCH'])
+def update_pizza(pizza_id):
+    pizza = Pizza.query.get(pizza_id)
+    if not pizza:
+        return jsonify({"error": "Pizza not found"}), 404
+    data = request.get_json()
+
+    if 'name' in data:
+        pizza.name = data['name']
+
+    if 'ingredients' in data:
+        pizza.ingredients = data['ingredients']
+        
+    db.session.commit()
+    return jsonify({"id": pizza.id, "name": pizza.name, "ingredients": pizza.ingredients}), 200
+
 @app.route('/restaurant_pizzas', methods=['POST'])
 def create_restaurant_pizza():
     data = request.get_json()
@@ -74,6 +90,12 @@ def create_restaurant_pizza():
     except Exception as e:
         db.session.rollback()
         return jsonify({"errors": [str(e)]}), 500
+    
+@app.route('/restaurant_pizzas', methods=['GET'])
+def read_restaurant_pizza():
+    restaurant_pizzas = Restaurant_pizza.query.all()
+    pizza_list = [{"price": rp.price, "pizza": rp.pizza.to_dict(), "restaurant": rp.restaurant.to_dict()} for rp in restaurant_pizzas]
+    return jsonify(pizza_list)
 
 
 if __name__ == '__main__':
